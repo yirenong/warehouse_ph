@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted,onUnmounted,ref,computed } from 'vue';
-import { api,API_BASE } from '../api'; import { io } from '../../../../shared/realtime';
+import { api,API_BASE } from '../api'; import { io } from '../../../shared/realtime';
 const payload=ref(null),scenario=ref('NORMAL_DAY'),speed=ref(10),mode=ref('DEMO'),busy=ref(false); let socket;
 const state=computed(()=>payload.value?.state||{}); const feed=computed(()=>payload.value?.feed||[]); const telemetry=computed(()=>payload.value?.telemetry||[]);
 async function load(){payload.value=(await api.get('/simulation/status')).data}

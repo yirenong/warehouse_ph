@@ -2,12 +2,12 @@
 
 # FlowDepot — Warehouse, Inventory & Delivery Management Suite
 
-A runnable full-stack Vue suite based on the supplied process diagram. It models the platform from four role perspectives: warehouse owner, tenant, warehouse manager and driver/3PL field user.
+A single-package full-stack Vue application based on the supplied process diagram. It models the platform from four role perspectives: warehouse owner, tenant, warehouse manager and driver/3PL field user.
 
 ## Included applications
 
-- `apps/web` — Vue 3 desktop/tablet operations portal.
-- `apps/mobile` — Ionic Vue mobile app/PWA for drivers and on-the-ground staff. It can later be packaged with Capacitor for Android/iOS.
+- `src/portal` — Vue 3 desktop/tablet operations portal.
+- `src/driver` — Ionic Vue mobile app/PWA for drivers and on-the-ground staff. It can later be packaged with Capacitor for Android/iOS.
 - `server` — Express API with role-based access, file-backed persistence, QR generation, RFID event ingestion, real-time notifications, proof-of-delivery uploads, incident handling and reporting.
 
 ## Major workflows implemented
@@ -55,7 +55,7 @@ npm run dev
 Open:
 
 - Web portal: `http://127.0.0.1:5180`
-- Mobile app/PWA: `http://localhost:5174`
+- Mobile app/PWA: `http://127.0.0.1:5180/driver/login`
 - Backend API: `http://localhost:4000/api`
 
 To run only the desktop portal + API:

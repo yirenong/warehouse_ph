@@ -22,7 +22,7 @@ test('one server serves both frontends and completes the driver pickup/sign-off 
     for(const route of ['/login','/driver/login','/driver/app/today','/driver/app/schedule']){
       const html=await(await request(route)).text();assert.match(html,/id="app"/);
       const asset=html.match(/src="([^"]+\.js)"/)[1];
-      if(route.startsWith('/driver'))assert.ok(asset.startsWith('/driver/assets/'));
+      assert.ok(asset.startsWith('/assets/'));
       assert.match((await request(asset)).headers.get('Content-Type'),/javascript/);
     }
     assert.equal((await fetch(url+'/api/nonexistent')).status,404);

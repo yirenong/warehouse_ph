@@ -1,6 +1,6 @@
 # FlowDepot workspace
 
-The operations portal, driver mobile website, and API now ship as one project.
+FlowDepot is one root npm package and one Vite application. The operations portal lives in `src/portal`, the driver interface in `src/driver`, and the API is deployed through `api/index.mjs`. No nested package manifests or npm workspaces remain.
 
 Local combined preview:
 

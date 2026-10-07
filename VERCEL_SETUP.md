@@ -1,6 +1,6 @@
 # FlowDepot: one Vercel project
 
-The repository now builds the operations portal, driver mobile website, and API for one Vercel project and one domain.
+The repository is one root Vue/Vite application package, with the Express API in `api/index.mjs`. There are no npm workspaces or separate frontend/server package manifests. Vercel imports the root as one Vite project.
 
 | Address | Application |
 | --- | --- |
@@ -22,14 +22,14 @@ npm start
 
 Open http://127.0.0.1:5182. The driver app is at http://127.0.0.1:5182/driver/login. This is one Node server serving both apps and the API.
 
-For live development, use `npm run dev` and open http://127.0.0.1:5180. That development server forwards `/driver` to the mobile development server and `/api` to the local API. Those development processes are packaged into one deployment by `npm run build`.
+For live development, use `npm run dev` and open http://127.0.0.1:5180. One Vite development server serves both interfaces and forwards `/api` to the local API. `npm run build` builds one application into `dist`.
 
 Local use without `DATABASE_URL` keeps the original JSON datastore and local uploads. Demo accounts are unchanged.
 
 ## Configure Vercel
 
-1. Import the repository as **one project**, with Root Directory set to the repository root, not `apps/web` or `apps/mobile`.
-2. Use Framework Preset **Other**. The committed `vercel.json` sets Install Command `npm ci`, Build Command `npm run build`, and Output Directory `dist`.
+1. Import the repository as **one project**, with Root Directory set to the repository root, with no subdirectory selected.
+2. Use Application Preset **Vite**, not **Services**. The committed `vercel.json` sets Install Command `npm ci`, Build Command `npm run build`, and Output Directory `dist`.
 3. Use Node.js **22.x**.
 4. Connect a PostgreSQL database to the project through Vercel Storage/Marketplace or your existing PostgreSQL provider. This is a storage resource, not a second frontend deployment.
 5. Set runtime environment variables:

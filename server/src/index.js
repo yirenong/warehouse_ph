@@ -827,7 +827,7 @@ io.on('connection', socket => {
 if(process.env.SERVE_FRONTENDS==='true') {
   const root=path.resolve(__dirname,'../../dist');
   app.use(express.static(root));
-  app.get('/driver*',(req,res)=>res.sendFile(path.join(root,'driver/index.html')));
+  app.get('/driver*',(req,res)=>res.sendFile(path.join(root,'index.html')));
   app.get('*',(req,res)=>{if(req.path.startsWith('/api/')||req.path.startsWith('/uploads/'))return res.status(404).json({error:'Not found'});res.sendFile(path.join(root,'index.html'));});
 }
 app.use((error,req,res,next)=>{console.error(error.message);if(res.headersSent)return next(error);res.status(error instanceof multer.MulterError?413:500).json({error:error instanceof multer.MulterError?'Upload exceeds the supported size.':'Unable to complete the request.'});});

@@ -1,28 +1,54 @@
 {
-  "name": "warehouse-ops-suite",
+  "name": "flowdepot",
   "private": true,
   "version": "1.0.0",
-  "workspaces": [
-    "apps/web",
-    "apps/mobile",
-    "server"
-  ],
   "scripts": {
     "install:all": "npm install",
-    "dev": "concurrently -n API,WEB,MOBILE -c auto \"npm --workspace server run dev\" \"npm --workspace apps/web run dev\" \"npm --workspace apps/mobile run dev\"",
-    "dev:web": "concurrently -n API,WEB -c auto \"npm --workspace server run dev\" \"npm --workspace apps/web run dev\"",
-    "dev:mobile": "concurrently -n API,MOBILE -c auto \"npm --workspace server run dev\" \"npm --workspace apps/mobile run dev\"",
+    "dev": "concurrently -n API,APP -c auto \"node --watch server/src/index.js\" \"vite\"",
+    "dev:web": "npm run dev",
+    "dev:mobile": "npm run dev",
     "build": "node scripts/build.mjs",
-    "reset:data": "npm --workspace server run reset:data",
+    "reset:data": "node server/src/reset.js",
     "start": "node scripts/start.mjs",
     "init:cloud": "node --env-file-if-exists=.env scripts/init-cloud.mjs",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "init:production": "node server/src/init-production.js",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.8",
-    "concurrently": "^9.0.0"
+    "concurrently": "^9.0.0",
+    "vite": "^5.4.11",
+    "@capacitor/cli": "^6.2.0",
+    "@vitejs/plugin-vue": "^5.2.0"
   },
   "engines": {
     "node": "22.x"
-  }
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.4",
+    "lucide-vue-next": "^0.468.0",
+    "pinia": "^2.2.6",
+    "socket.io-client": "^4.8.1",
+    "vue": "^3.5.13",
+    "vue-chartjs": "^5.3.1",
+    "vue-router": "^4.4.5",
+    "@capacitor/core": "^6.2.0",
+    "@ionic/vue": "^8.4.2",
+    "@ionic/vue-router": "^8.4.2",
+    "ionicons": "^7.4.0",
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/ios": "^6.2.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pdfkit": "^0.15.0",
+    "pg": "^8.23.1",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.0"
+  },
+  "type": "module"
 }
