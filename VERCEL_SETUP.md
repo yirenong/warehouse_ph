@@ -59,7 +59,7 @@ For a training/demo deployment with the existing driver routes and all four demo
 npm run init:cloud -- --demo
 ```
 
-Use the demo initializer instead of the clean owner initializer for that database. Demo accounts remain usable even when the production UI hides their hints. To display demo hints on a training deployment, set `VITE_DEMO_MODE=true` in Vercel before building. A clean owner initialization does not create driver accounts or sample routes.
+Use the demo initializer instead of the clean owner initializer for that database. Demo login details are displayed by default in both interfaces. If Vercel already has `VITE_DEMO_MODE=false`, change it to `true` and redeploy to restore the details. Set it to `false` for a production deployment with real accounts. A clean owner initialization does not create driver accounts or sample routes.
 
 ## Deploy and verify
 
