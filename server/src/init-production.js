@@ -1,0 +1,13 @@
+import crypto from 'node:crypto';
+import { buildSeed } from './seed.js';
+import { saveDb } from './store.js';
+const email=process.env.BOOTSTRAP_OWNER_EMAIL, password=process.env.BOOTSTRAP_OWNER_PASSWORD, name=process.env.BOOTSTRAP_OWNER_NAME||'FlowDepot Owner';
+if(!email||!password||password.length<12) throw new Error('Set BOOTSTRAP_OWNER_EMAIL and BOOTSTRAP_OWNER_PASSWORD (minimum 12 chars).');
+const passwordHash=(v)=>{const salt=crypto.randomBytes(16).toString('hex');const digest=crypto.scryptSync(String(v),salt,32).toString('hex');return `scrypt$${salt}$${digest}`;};
+const db=await buildSeed();
+const preserve=['organization','currencySettings','exchangeRates'];
+for(const key of Object.keys(db)) if(Array.isArray(db[key])) db[key]=[];
+db.organization={...db.organization,name:process.env.ORGANIZATION_NAME||'FlowDepot',legalName:process.env.ORGANIZATION_LEGAL_NAME||process.env.ORGANIZATION_NAME||'FlowDepot',email:process.env.ORGANIZATION_EMAIL||email};
+db.users=[{id:'USR-OWNER-001',name,email:String(email).toLowerCase(),password:passwordHash(password),role:'OWNER',tenantId:null,siteIds:[],createdAt:new Date().toISOString()}];
+db.processEvents=[];db.approvals=[];db.stockLedger=[];db.stockReservations=[];db.goodsRequests=[];db.deliveryRequests=[];db.locationContacts=[];db.documentDistributions=[];db.routeRuns=[];db.driverAvailabilityRequests=[];db.simulationFeed=[];db.simulationTelemetry=[];db.simulationState={mode:'DISABLED',running:false,scenario:null,speed:1,tick:0,runId:null,startedAt:null,updatedAt:new Date().toISOString(),elapsedSimMinutes:0};
+saveDb(db);console.log(`Production datastore initialized for ${email}. Change bootstrap credentials after first login.`);

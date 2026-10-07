@@ -1,0 +1,10 @@
+node_modules
+.git
+server/data
+server/uploads
+docs
+tests
+*.tar
+*.zip
+.env*
+!.env.example

@@ -1,0 +1,25 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    restart: unless-stopped
+    env_file: ./server/.env.production
+    volumes:
+      - flowdepot_data:/data
+      - flowdepot_uploads:/app/server/uploads
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args:
+        VITE_API_URL: /api
+        VITE_DEMO_MODE: "false"
+        VITE_SIMULATION_ENABLED: "false"
+    restart: unless-stopped
+    depends_on: [api]
+    ports:
+      - "8080:80"
+volumes:
+  flowdepot_data:
+  flowdepot_uploads:

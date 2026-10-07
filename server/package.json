@@ -1,0 +1,22 @@
+{
+  "name": "warehouse-suite-api",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "reset:data": "node src/reset.js",
+    "init:production": "node src/init-production.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pdfkit": "^0.15.0",
+    "pg": "^8.23.1",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.0"
+  }
+}

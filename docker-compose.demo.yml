@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    restart: unless-stopped
+    environment:
+      APP_MODE: demo
+      PORT: 4000
+      JWT_SECRET: flowdepot-client-demo-secret-change-me-2026
+      ALLOWED_ORIGINS: http://localhost:8080
+      SIMULATION_ENABLED: "true"
+      RATE_LIMIT_PER_MINUTE: 600
+      DB_PATH: /data/db.json
+    volumes:
+      - flowdepot_demo_data:/data
+      - flowdepot_demo_uploads:/app/server/uploads
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args:
+        VITE_API_URL: /api
+        VITE_DEMO_MODE: "true"
+        VITE_SIMULATION_ENABLED: "true"
+    restart: unless-stopped
+    depends_on: [api]
+    ports:
+      - "8080:80"
+volumes:
+  flowdepot_demo_data:
+  flowdepot_demo_uploads:
